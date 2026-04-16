@@ -1,0 +1,331 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   DriveAI — VelocityAI Motors  |  Global Styles
+   Tailwind v4 via @tailwindcss/vite  ·  Google Fonts injected in index.html
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ① Tailwind v4 — MUST be first; nothing above this line */
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Design Tokens
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Brand palette */
+  --color-primary:    #6366f1;   /* indigo-500  */
+  --color-secondary:  #8b5cf6;   /* violet-500  */
+  --color-accent:     #06b6d4;   /* cyan-500    */
+
+  /* Backgrounds */
+  --bg-base:          #0a0a0f;
+  --bg-card:          #13131a;
+  --bg-card-hover:    #16161f;
+  --bg-surface:       #0d0d15;
+
+  /* Borders */
+  --border-subtle:    #1e1e2e;
+  --border-muted:     #2a2a3a;
+
+  /* Text */
+  --text-primary:     #f8fafc;
+  --text-secondary:   #94a3b8;
+  --text-muted:       #475569;
+
+  /* Glow */
+  --glow-primary:     rgba(99, 102, 241, 0.30);
+  --glow-secondary:   rgba(139, 92, 246, 0.25);
+
+  /* Navbar height — sections add this as top padding so they never hide behind nav */
+  --navbar-height:    72px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Base Reset
+   ───────────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Scrollbar
+   ───────────────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar          { width: 6px; }
+::-webkit-scrollbar-track    { background: var(--bg-base); }
+::-webkit-scrollbar-thumb    { background: var(--color-primary); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-secondary); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Typography Helpers
+   ───────────────────────────────────────────────────────────────────────── */
+.font-display {
+  font-family: 'Rajdhani', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Layout Helpers
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Consistent max-width container */
+.container-xl {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* Section vertical spacing.
+   Sections that follow the hero use scroll-margin-top so anchor links
+   land below the fixed navbar. */
+.section-base {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  padding-inline: 1.5rem;
+  scroll-margin-top: var(--navbar-height);
+}
+
+/* Legacy alias kept for components using .section-padding */
+.section-padding {
+  padding: 5rem 1.5rem;
+  scroll-margin-top: var(--navbar-height);
+}
+
+@media (max-width: 768px) {
+  .section-base,
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-inline: 1rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Component Primitives
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Glass / frosted panel */
+.glass-card {
+  background: rgba(19, 19, 26, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;          /* 16px */
+}
+
+/* Neon shimmer button overlay */
+.btn-neon {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -100%;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transition: left 0.45s ease;
+}
+
+.btn-neon:hover::before { left: 100%; }
+
+/* Fixed AI chat widget anchor */
+.ai-widget {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Keyframe Animations
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Fade + rise entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.55s ease both;
+}
+
+/* Section highlight pulse (AI navigation) */
+@keyframes sectionPulse {
+  0%   { box-shadow: 0 0  0   0   rgba(99, 102, 241, 0.50); }
+  50%  { box-shadow: 0 0 48px 14px rgba(99, 102, 241, 0.22); }
+  100% { box-shadow: 0 0  0   0   rgba(99, 102, 241, 0); }
+}
+
+.ai-highlight {
+  animation: sectionPulse 1.6s ease-in-out 2;
+  border-radius: 1rem;
+}
+
+/* Car card AI recommendation pulse */
+@keyframes recommendPulse {
+  0%, 100% { border-color: rgba(99, 102, 241, 0.30); }
+  50%       {
+    border-color: rgba(99, 102, 241, 0.90);
+    box-shadow: 0 0 32px rgba(99, 102, 241, 0.40);
+  }
+}
+
+.car-recommended {
+  animation: recommendPulse 1.5s ease-in-out 3;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 2px solid rgba(99, 102, 241, 0.20);
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Form inputs — applied via JS className helper in BookingForm / Contact
+   ───────────────────────────────────────────────────────────────────────── */
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input:focus {
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.form-input-error {
+  border-color: rgba(239, 68, 68, 0.60);
+}
+
+.form-input-error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+/* Date / select browser chrome */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+}
+
+select option {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Global Responsive Rules
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Comparison table: horizontally scrollable on mobile ── */
+.comparison-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comparison-scroll > div {
+  min-width: 580px; /* prevents table columns from collapsing below readable width */
+}
+
+/* ── CarModels filter bar: stack pill groups on mobile ── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* ── Common section inner container ── */
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ── Responsive typography scale-down ── */
+@media (max-width: 480px) {
+  .section-padding {
+    padding: 2.5rem 0.875rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 9vw, 3rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(1.625rem, 7vw, 2.25rem) !important;
+  }
+}
+
+/* ── AI chat widget: smaller on very small screens ── */
+@media (max-width: 400px) {
+  .ai-widget {
+    bottom: 0.875rem;
+    right: 0.875rem;
+  }
+}
+
+/* ── Make images never overflow their containers ── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Buttons: min tap target on mobile ── */
+@media (max-width: 768px) {
+  button {
+    min-height: 36px;
+  }
+}
