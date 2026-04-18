@@ -33,7 +33,7 @@ const app = express();
 // Allow cross-origin requests from our React frontend
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:3000"],
+    origin: ["http://localhost:5173", "http://localhost:3000", "https://drive-ai-gwhg.vercel.app"],
     credentials: true,
   })
 );
