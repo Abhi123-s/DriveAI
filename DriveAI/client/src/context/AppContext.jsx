@@ -61,10 +61,13 @@ export const AppProvider = ({ children }) => {
   // ─────────────────────────────────────────────────────
   // Fetch cars from backend on mount
   // ─────────────────────────────────────────────────────
+
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
   const fetchCars = async (params = {}) => {
     try {
       setCarsLoading(true);
-      const response = await axios.get("/api/cars", { params });
+      const response = await axios.get(`${API_BASE}/cars`, { params });
       const carData = response.data.data;
       setCars(carData);
       setFilteredCars(carData);
